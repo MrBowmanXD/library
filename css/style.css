@@ -5,3 +5,18 @@
 .hidden {
   display: none;
 }
+
+.flex-container {
+  display: flex;
+  width: 250px;
+}
+
+.flex-child {
+  padding: 30px;
+  border: 1px solid black;
+  margin: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
