@@ -41,17 +41,8 @@ submitBtn.addEventListener('click', (e) => {
 
   loopBooks();
   formToggler();
-  myLibrary.forEach((book) => {
-    const selectedBook = document.querySelector(`.counter${book.counter}`);
-    const removedBook = document.querySelector(`.counter${book.counter}Remove`);
-    selectedBook.addEventListener('click', () => {
-      removedBook.classList.add('hidden');
-      book.removed = true;
-    });
-    if (book.removed) {
-      flexContainer.removeChild(removedBook);
-    }
-  });
+  addCheckBoxChecker();
+  removeBook();
 });
 
 function formToggler() {
@@ -75,9 +66,39 @@ function loopBooks() {
     div.innerHTML += `<p class="bold">Title</p><p>${book.title}</p>
   <p class="bold">Author</p><p>${book.author}</p>
   <p class="bold">Pages</p><p>${parseInt(book.pages)}</p>
-  <p class="bold">Read</p><p>${book.read}</p>
+  <p class="bold readMaybe">Read</p><input class="checkbox" type="checkbox"><p class="userRead">${
+    book.read
+  }</p>
   <button class="remove counter${book.counter}">Remove</button>`;
 
     flexContainer.appendChild(div);
+  });
+}
+
+function removeBook() {
+  myLibrary.forEach((book) => {
+    const selectedBook = document.querySelector(`.counter${book.counter}`);
+    const removedBook = document.querySelector(`.counter${book.counter}Remove`);
+    selectedBook.addEventListener('click', () => {
+      removedBook.classList.add('hidden');
+      book.removed = true;
+    });
+    if (book.removed) {
+      flexContainer.removeChild(removedBook);
+    }
+  });
+}
+
+function addCheckBoxChecker() {
+  myLibrary.forEach((book) => {
+    const checkbox = document.querySelector('.checkbox');
+    const userRead = document.querySelector('.userRead');
+    checkbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        userRead.textContent = 'Yes i read it';
+      } else {
+        userRead.textContent = 'Not read yet';
+      }
+    });
   });
 }
